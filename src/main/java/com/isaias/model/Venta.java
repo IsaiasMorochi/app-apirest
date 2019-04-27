@@ -28,9 +28,9 @@ public class Venta {
 	@Column(name = "importe", nullable = false)
 	private double importe;
 
-	@OneToMany(mappedBy = "venta", cascade = { CascadeType.PERSIST, CascadeType.MERGE,
-			CascadeType.REMOVE }, fetch = FetchType.LAZY, orphanRemoval = true)
-	private List<DetalleVenta> detalleVenta;
+//	@OneToMany(mappedBy = "venta", cascade = { CascadeType.PERSIST, CascadeType.MERGE,
+//			CascadeType.REMOVE }, fetch = FetchType.LAZY, orphanRemoval = true)
+//	private List<DetalleVenta> detalleVenta;
 
 	public Integer getIdVenta() {
 		return idVenta;
@@ -56,12 +56,13 @@ public class Venta {
 	public void setImporte(double importe) {
 		this.importe = importe;
 	}
-	public List<DetalleVenta> getDetalleVenta() {
-		return detalleVenta;
-	}
-	public void setDetalleVenta(List<DetalleVenta> detalleVenta) {
-		this.detalleVenta = detalleVenta;
-	}
+
+//	public List<DetalleVenta> getDetalleVenta() {
+//		return detalleVenta;
+//	}
+//	public void setDetalleVenta(List<DetalleVenta> detalleVenta) {
+//		this.detalleVenta = detalleVenta;
+//	}
 
 	@Override
 	public boolean equals(Object o) {

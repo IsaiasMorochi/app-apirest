@@ -1,12 +1,14 @@
 package com.isaias.service.impl;
 
-import com.isaias.model.DetalleVenta;
-import com.isaias.model.Producto;
+import com.isaias.dto.VentaListaDetalleDTO;
+
 import com.isaias.model.Venta;
+import com.isaias.repo.IDetalleVentaRepository;
 import com.isaias.repo.IVentaRepository;
 import com.isaias.service.IVentaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -16,13 +18,22 @@ public class VentaServiceImpl implements IVentaService {
     @Autowired
     private IVentaRepository repo;
 
+
+    @Autowired
+    private IDetalleVentaRepository repoDV;
+
+    @Transactional
+    @Override
+    public Venta registrarTransaccional(VentaListaDetalleDTO ventaDTO) {
+        repo.save(ventaDTO.getVenta());
+
+        ventaDTO.getDetalleVenta().forEach(e -> repoDV.registrar(  ventaDTO.getVenta().getIdVenta(), e.getIdProducto(), ventaDTO.getCantidad()) );
+        return ventaDTO.getVenta();
+    }
+
     @Override
     public Venta registrar(Venta venta) {
-
-        Producto p = new Producto();
-        p.setIdProducto(1);
-
-        venta.getDetalleVenta().forEach(detalle -> detalle.setVenta(venta));
+//        venta.getDetalleVenta().forEach(detalle -> detalle.setIdVenta(venta));
         return repo.save(venta);
     }
 

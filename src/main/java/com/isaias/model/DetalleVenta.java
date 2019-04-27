@@ -1,25 +1,20 @@
 package com.isaias.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "detalle_venta")
+@IdClass(DetalleVentaPK.class)
 public class DetalleVenta {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer idDetalleVenta;
 
-	@JsonIgnore
-	@ManyToOne
-	@JoinColumn(name = "id_venta", nullable = false, foreignKey = @ForeignKey(name = "fk_dventa_venta"))
+	@Id
 	private Venta venta;
 
-	@JsonIgnore
-	@ManyToOne
-	@JoinColumn(name = "id_producto", nullable = false, foreignKey = @ForeignKey(name = "fk_dventa_producto"))
+	@Id
 	private Producto producto;
 
 	@Column(name = "cantidad", nullable = false)

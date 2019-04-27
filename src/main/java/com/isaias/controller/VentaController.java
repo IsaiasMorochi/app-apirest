@@ -1,5 +1,6 @@
 package com.isaias.controller;
 
+import com.isaias.dto.VentaListaDetalleDTO;
 import com.isaias.exception.ModelNotFoundException;
 import com.isaias.model.Venta;
 import com.isaias.service.IVentaService;
@@ -33,8 +34,8 @@ public class VentaController {
     }
 
     @PostMapping
-    public ResponseEntity<Object> registrar(@Valid @RequestBody Venta venta){
-        Venta v = service.registrar(venta);
+    public ResponseEntity<Object> registrar(@Valid @RequestBody VentaListaDetalleDTO ventaDTO){
+        Venta v = service.registrarTransaccional(ventaDTO);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(v.getIdVenta()).toUri();
         return ResponseEntity.created(location).build(); //201
     }
